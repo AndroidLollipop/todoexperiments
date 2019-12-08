@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Callbags from './callbags.js';
+import './Logic.js'
 import Registry from './Registry.js';
 
 class App extends React.Component {
@@ -13,7 +14,7 @@ class App extends React.Component {
   componentDidMount() {
     Callbags.forEach((x) => this.setState({
       hello: x
-    }))(Callbags.rangeInterval(1, 0, 1000))
+    }))(Registry.Firehose)
   }
 
   render() {
