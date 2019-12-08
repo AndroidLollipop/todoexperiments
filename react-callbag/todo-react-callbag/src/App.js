@@ -12,9 +12,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    Callbags.forEach((x) => this.setState({
-      hello: x
-    }))(Registry.Firehose)
+    Callbags.forEach(x => this.setState(x))(Registry.Firehose)
   }
 
   render() {
