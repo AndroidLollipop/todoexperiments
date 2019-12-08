@@ -8,7 +8,7 @@ import Registry from './Registry.js';
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {todos: []}
+    this.state = Registry.getInitialState()
   }
 
   componentDidMount() {
@@ -20,25 +20,21 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <p onClick = {() => Registry.Dispatch("Sbinnala")}>
-            {this.state.todos.map(x => (<p>
-              {x.todoText}
-            </p>))}
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <p onClick = {() => Registry.Dispatch({
+          ACTION: "toggleinterval"
+        })}>pronto s🅱️inotto</p>
+        <p onClick = {() => Registry.Dispatch({
+          ACTION: "newtodo",
+          PARAMETERS: "s🅱️innala"
+        })}>
+          {this.state.todos.map(x => (<p>
+            {x.todoText}
+          </p>))}
+        </p>
+        <input type="text" value={this.state.inputValue} onChange = {x => Registry.Dispatch({
+          ACTION: "inputchange",
+          PARAMETERS: x.target.value
+        })}/>
       </div>
     );
   }
