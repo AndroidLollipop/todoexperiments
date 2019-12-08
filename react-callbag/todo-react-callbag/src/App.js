@@ -8,11 +8,13 @@ import Registry from './Registry.js';
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {hello: 5}
+    this.state = {todos: []}
   }
 
   componentDidMount() {
-    Callbags.forEach(x => this.setState(x))(Registry.Firehose)
+    Callbags.forEach(x => {
+      this.setState(x)}
+    )(Registry.Firehose)
   }
 
   render() {
@@ -24,7 +26,9 @@ class App extends React.Component {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <p onClick = {() => Registry.Dispatch("Sbinnala")}>
-            {this.state.hello}
+            {this.state.todos.map(x => (<p>
+              {x.todoText}
+            </p>))}
           </p>
           <a
             className="App-link"
