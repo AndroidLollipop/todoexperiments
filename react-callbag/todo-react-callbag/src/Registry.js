@@ -1,3 +1,2 @@
-var exports = module.exports = {
-  
-}
+const Registry = {}
+export default Registry
