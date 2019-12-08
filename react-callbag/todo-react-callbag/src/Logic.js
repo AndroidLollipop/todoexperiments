@@ -37,6 +37,9 @@ Registry.Firehose = mapSponge((state, dispatched) => {
     }
   }
   else if (dispatched.ACTION === "inputenter") {
+    if (state.inputValue === "") {
+      return state
+    }
     return {
       ...state,
       todos: [
