@@ -25,7 +25,7 @@ class App extends React.Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <p>
+          <p onClick = {() => Registry.Dispatch("Sbinnala")}>
             {this.state.hello}
           </p>
           <a
