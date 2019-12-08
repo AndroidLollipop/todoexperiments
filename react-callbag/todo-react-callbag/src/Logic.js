@@ -36,6 +36,18 @@ Registry.Firehose = mapSponge((state, dispatched) => {
       inputValue: dispatched.PARAMETERS
     }
   }
+  else if (dispatched.ACTION === "inputenter") {
+    return {
+      ...state,
+      todos: [
+        ...state.todos,
+        {
+          todoText: state.inputValue
+        }
+      ],
+      inputValue: ""
+    }
+  }
   else if (dispatched.ACTION === "toggleinterval") {
     InterCallbag.callback(1)
   }

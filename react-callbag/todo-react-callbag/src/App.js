@@ -22,7 +22,7 @@ class App extends React.Component {
       <div className="App">
         <p onClick = {() => Registry.Dispatch({
           ACTION: "toggleinterval"
-        })}>pronto s🅱️inotto</p>
+        })}>pronto s🅱️inotto (click me to answer the call and find out the number of times se🅱️astian has spun this season)</p>
         <p onClick = {() => Registry.Dispatch({
           ACTION: "newtodo",
           PARAMETERS: "s🅱️innala"
@@ -34,7 +34,9 @@ class App extends React.Component {
         <input type="text" value={this.state.inputValue} onChange = {x => Registry.Dispatch({
           ACTION: "inputchange",
           PARAMETERS: x.target.value
-        })}/>
+        })} onKeyDown = {x => {if (x.key === "Enter") {Registry.Dispatch({
+          ACTION: "inputenter"
+        })}}}/>
       </div>
     );
   }
