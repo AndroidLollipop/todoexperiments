@@ -18,14 +18,15 @@ const mapState = (func, initial) => {
 } // could have done this better i admit
 const InterCallbag = Callbags.factoryFromCallback()
 Registry.Dispatch = SourceFromCallback.callback
-Registry.Firehose = mapSponge((state, dispatched) => {
+Registry.Firehose = Callbags.map(x => (localStorage.setItem('storage', JSON.stringify(x)), x))(mapSponge((state, dispatched) => {
   if (dispatched.ACTION === "newtodo") {
     return {
       ...state,
       todos: [
         ...state.todos,
         {
-          todoText: dispatched.PARAMETERS
+          todoText: dispatched.PARAMETERS,
+          state: "active"
         }
       ]
     }
@@ -45,7 +46,8 @@ Registry.Firehose = mapSponge((state, dispatched) => {
       todos: [
         ...state.todos,
         {
-          todoText: state.inputValue
+          todoText: state.inputValue,
+          state: "active"
         }
       ],
       inputValue: ""
@@ -53,6 +55,28 @@ Registry.Firehose = mapSponge((state, dispatched) => {
   }
   else if (dispatched.ACTION === "toggleinterval") {
     InterCallbag.callback(1)
+  }
+  else if (dispatched.ACTION === "filter") {
+    return {
+      ...state,
+      filter: dispatched.PARAMETERS
+    }
+  }
+  else if (dispatched.ACTION === "togglecomplete") {
+    const index = dispatched.PARAMETERS
+    const item = state.todos[index]
+    const newTodos = [...state.todos]
+    newTodos[index] = {
+      ...item,
+      state: item.state === "active" ? "completed" : "active"
+    }
+    return {
+      ...state,
+      todos: newTodos
+    }
+  }
+  else if (dispatched.ACTION === "reset") {
+    return Registry.getDefaultState()
   }
   //contingency fallback to avoid erasing state
   return state
@@ -71,4 +95,4 @@ Registry.Firehose = mapSponge((state, dispatched) => {
     return [current, Callbags.signalIgnore]
   }, false)(Callbags.mergeSources(Callbags.map(x => ({streamid: 2, value: x}))(InterCallbag.callbag),
     Callbags.map(x => ({streamid: 1, value: x}))(Callbags.rangeInterval(1, 0, 1000))))
-)))
+))))

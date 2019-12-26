@@ -26,8 +26,28 @@ class App extends React.Component {
         <p onClick = {() => Registry.Dispatch({
           ACTION: "newtodo",
           PARAMETERS: "s🅱️innala"
-        })}>
-          {this.state.todos.map(x => (<p>
+        })}>s🅱️innala</p>
+        <p onClick = {() => Registry.Dispatch({
+          ACTION: "reset"
+        })}>reset surface state</p>
+        <p onClick = {() => Registry.Dispatch({
+          ACTION: "filter",
+          PARAMETERS: "completed"
+        })}>completed</p>
+        <p onClick = {() => Registry.Dispatch({
+          ACTION: "filter",
+          PARAMETERS: "active"
+        })}>active</p>
+        <p onClick = {() => Registry.Dispatch({
+          ACTION: "filter",
+          PARAMETERS: "all"
+        })}>all</p>
+        {/*this may seem unnecessary but we want the filter state to be restored on launch as well*/}
+        <p>
+          {this.state.todos.map((x, index) => ({...x, index: index})).filter(x => this.state.filter === "all" || x.state === this.state.filter).map(x => (<p onClick = {() => Registry.Dispatch({
+            ACTION: "togglecomplete",
+            PARAMETERS: x.index
+          })}>
             {x.todoText}
           </p>))}
         </p>
